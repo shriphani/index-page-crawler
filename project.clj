@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[clj-http "1.0.0"]
                  [clj-time "0.8.0"]
+                 [com.cemerick/url "0.1.1"]
                  [com.github.kyleburton/clj-xpath "1.4.3"]
                  [com.google.guava/guava "17.0"]
                  [enlive "1.1.5"]

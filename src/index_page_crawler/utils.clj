@@ -2,7 +2,9 @@
   (:require [clojure.string :as string]
             (org.bovinegenius [exploding-fish :as uri])
             [subotai.representation :as representation])
-  (:use [clj-xpath.core :only [$x:node*]]))
+  (:use [clj-xpath.core :only [$x:node*]]
+        [cemerick.url :only [url-encode]])
+  (:import [org.apache.commons.lang StringEscapeUtils]))
 
 (defn node-attr
   [a-node attr]
@@ -34,9 +36,11 @@
 (defn build-node-href-pair
   [node src-uri]
   (let [href (node-attr node "href")
-        resolved (try (uri/fragment
-                       (uri/resolve-uri src-uri href)
-                       nil)
+        resolved (try
+                      (StringEscapeUtils/unescapeHtml
+                       (uri/fragment
+                        (uri/resolve-uri src-uri href)
+                        nil))
                       (catch Exception e nil))]
     [node resolved]))
 
